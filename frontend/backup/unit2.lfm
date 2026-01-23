@@ -1,0 +1,35 @@
+object Form3: TForm3
+  Left = 821
+  Height = 240
+  Top = 392
+  Width = 417
+  Caption = 'Form3'
+  ClientHeight = 240
+  ClientWidth = 417
+  LCLVersion = '3.0.0.3'
+  object Edit1: TEdit
+    Left = 40
+    Height = 39
+    Top = 32
+    Width = 335
+    TabOrder = 0
+    Text = 'nick'
+  end
+  object Edit2: TEdit
+    Left = 41
+    Height = 39
+    Top = 88
+    Width = 335
+    TabOrder = 1
+    Text = 'ipv6'
+  end
+  object Button1: TButton
+    Left = 40
+    Height = 22
+    Top = 152
+    Width = 335
+    Caption = 'add'
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+end

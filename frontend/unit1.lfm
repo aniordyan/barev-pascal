@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 748
+  Left = 1062
   Height = 524
-  Top = 255
+  Top = 305
   Width = 466
   Caption = 'Form1'
   ClientHeight = 524
@@ -47,8 +47,15 @@ object Form1: TForm1
       Top = 104
       Width = 188
       ItemHeight = 0
+      Items.Strings = (
+        'Offline'
+        'Available'
+        'Away'
+        'ExtendedAway'
+        'DoNotDisturb'
+      )
       TabOrder = 2
-      Text = 'ComboBox1'
+      Text = 'select'
       OnChange = ComboBox1Change
     end
     object Image1: TImage
@@ -10992,6 +10999,7 @@ object Form1: TForm1
       Width = 120
       Caption = 'add buddy'
       TabOrder = 0
+      OnClick = Button1Click
     end
     object ListBox1: TListBox
       Left = 16

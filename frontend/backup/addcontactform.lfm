@@ -1,0 +1,44 @@
+object Form2: TForm2
+  Left = 967
+  Height = 226
+  Top = 238
+  Width = 490
+  Caption = 'Form2'
+  ClientHeight = 226
+  ClientWidth = 490
+  LCLVersion = '3.0.0.3'
+  object Edit1: TEdit
+    Left = 32
+    Height = 39
+    Top = 72
+    Width = 432
+    TabOrder = 0
+    Text = 'nick'
+    OnChange = Edit1Change
+  end
+  object Edit2: TEdit
+    Left = 32
+    Height = 39
+    Top = 120
+    Width = 432
+    TabOrder = 1
+    Text = 'ipv6'
+    OnChange = Edit2Change
+  end
+  object Button1: TButton
+    Left = 32
+    Height = 25
+    Top = 176
+    Width = 75
+    Caption = 'add'
+    TabOrder = 2
+    OnClick = Button1Click
+  end
+  object Label1: TLabel
+    Left = 41
+    Height = 22
+    Top = 36
+    Width = 90
+    Caption = 'add buddy'
+  end
+end
