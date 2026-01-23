@@ -5,7 +5,7 @@ unit ContactManager;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, Barev, BarevTypes;
 
 type
   TContact = record
@@ -15,35 +15,50 @@ type
 
   TContactManager = class
   private
-    FContacts: array of TContact;
+    FClient: TBarevClient;
   public
+    constructor Create(AClient: TBarevClient);
+
     procedure AddContact(const ANick, AIPv6: string);
+    procedure LoadFromFile(const FileName: string);
+    procedure SaveToFile(const FileName: string);
+
     function Count: Integer;
-    function GetContact(Index: Integer): TContact;
+    function GetContact(Index: Integer): TBarevBuddy;
   end;
 
 implementation
 
-procedure TContactManager.AddContact(const ANick, AIPv6: string);
-var
-  C: TContact;
+constructor TContactManager.Create(AClient: TBarevClient);
 begin
-  C.Nick := ANick;
-  C.IPv6 := AIPv6;
+  FClient := AClient;
+end;
 
-  SetLength(FContacts, Length(FContacts) + 1);
-  FContacts[High(FContacts)] := C;
+procedure TContactManager.AddContact(const ANick, AIPv6: string);
+begin
+  FClient.AddBuddy(ANick, AIPv6, BAREV_DEFAULT_PORT);
+end;
+
+procedure TContactManager.LoadFromFile(const FileName: string);
+begin
+  FClient.LoadContactsFromFile(FileName);
+end;
+
+procedure TContactManager.SaveToFile(const FileName: string);
+begin
+  FClient.SaveContactsToFile(FileName);
 end;
 
 function TContactManager.Count: Integer;
 begin
-  Result := Length(FContacts);
+  Result := FClient.GetBuddyCount;
 end;
 
-function TContactManager.GetContact(Index: Integer): TContact;
+function TContactManager.GetContact(Index: Integer): TBarevBuddy;
 begin
-  Result := FContacts[Index];
+  Result := FClient.GetBuddyByIndex(Index);
 end;
+
 
 end.
 

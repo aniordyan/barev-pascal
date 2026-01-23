@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, ContactManager, Unit2;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, ContactManager, Unit2, Barev, BarevTypes;
 
 type
 
@@ -26,9 +26,11 @@ type
     procedure Edit1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure ListBox1Click(Sender: TObject);
     procedure RefreshContactList;
   private
     FContactManager: TContactManager;
+    FBarevClient: TBarevClient;
 
 
   public
@@ -46,10 +48,21 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
-    FContactManager := TContactManager.Create;
+     FBarevClient := TBarevClient.Create(Edit1.Text, Edit2.Text);
+FBarevClient.Start;
+
+FContactManager := TContactManager.Create(FBarevClient);
+FContactManager.LoadFromFile('contacts.txt');
+RefreshContactList;
+
 end;
 
 procedure TForm1.Image1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.ListBox1Click(Sender: TObject);
 begin
 
 end;
@@ -67,13 +80,13 @@ end;
 procedure TForm1.RefreshContactList;
 var
   I: Integer;
-  C: TContact;
+  Buddy: TBarevBuddy;
 begin
   ListBox1.Clear;
   for I := 0 to FContactManager.Count - 1 do
   begin
-    C := FContactManager.GetContact(I);
-    ListBox1.Items.Add(C.Nick + ' [' + C.IPv6 + ']');
+    Buddy := FContactManager.GetContact(I);
+    ListBox1.Items.Add(Buddy.JID);
   end;
 end;
 
@@ -88,6 +101,8 @@ begin
     begin
       FContactManager.AddContact(AddForm.Nick, AddForm.IPv6);
       RefreshContactList;
+      FContactManager.SaveToFile('contacts.txt');
+
     end;
   finally
     AddForm.Free;
