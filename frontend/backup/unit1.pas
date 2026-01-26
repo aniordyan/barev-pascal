@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, ContactManager, Unit2, Barev, BarevTypes;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, ContactManager, Unit2, Barev, BarevTypes, Unit3;
 
 type
 
@@ -21,17 +21,20 @@ type
     Panel1: TPanel;
     Panel2: TPanel;
     Image1: TImage;
-    ScrollBar1: TScrollBar;
+    Timer1: TTimer;
     procedure Button1Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
     procedure Edit1Change(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Image1Click(Sender: TObject);
+    procedure ListBox1Click(Sender: TObject);
+    procedure ListBox1DblClick(Sender: TObject);
     procedure RefreshContactList;
+    procedure Timer1Timer(Sender: TObject);
   private
     FContactManager: TContactManager;
     FBarevClient: TBarevClient;
-
+    procedure OnMessageReceived(Buddy: TBarevBuddy; const MessageText: string);
 
   public
 
@@ -49,11 +52,13 @@ implementation
 procedure TForm1.FormCreate(Sender: TObject);
 begin
      FBarevClient := TBarevClient.Create(Edit1.Text, Edit2.Text);
+     FBarevClient.OnMessageReceived:= @OnMessageReceived;
 FBarevClient.Start;
 
 FContactManager := TContactManager.Create(FBarevClient);
 FContactManager.LoadFromFile('contacts.txt');
 RefreshContactList;
+
 
 end;
 
@@ -61,6 +66,27 @@ procedure TForm1.Image1Click(Sender: TObject);
 begin
 
 end;
+
+procedure TForm1.ListBox1Click(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.ListBox1DblClick(Sender: TObject);
+var
+  Index: Integer;
+  Buddy: TBarevBuddy;
+  Chat: TForm4;
+begin
+  Index := ListBox1.ItemIndex;
+  if Index < 0 then Exit;
+
+  Buddy := FContactManager.GetContact(Index);
+
+  Chat := TForm4.CreateChat(Self, FBarevClient, Buddy);
+  Chat.Show;
+end;
+
 
 procedure TForm1.Edit1Change(Sender: TObject);
 begin
@@ -85,6 +111,12 @@ begin
   end;
 end;
 
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+  if Assigned(FBarevClient) then
+    FBarevClient.Process;
+end;
+
 procedure TForm1.Button1Click(Sender: TObject);
 
 var
@@ -104,6 +136,14 @@ begin
   end;
 end;
 
+procedure TForm1.OnMessageReceived(
+  Buddy: TBarevBuddy;
+  const MessageText: string
+);
+begin
+  // example
+  ShowMessage(Buddy.Nick + ': ' + MessageText);
+end;
 
 
 
