@@ -5,7 +5,8 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls, ContactManager, Unit2, Barev, BarevTypes, Unit3;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, ExtCtrls, StdCtrls,
+  Menus, ContactManager, Unit2, Barev, BarevTypes, Unit3;
 
 type
 
@@ -18,9 +19,12 @@ type
     Edit2: TEdit;
     Label1: TLabel;
     ListBox1: TListBox;
+    MenuItem1: TMenuItem;
+    OpenDialog1: TOpenDialog;
     Panel1: TPanel;
     Panel2: TPanel;
     Image1: TImage;
+    PopupMenu1: TPopupMenu;
     Timer1: TTimer;
     procedure Button1Click(Sender: TObject);
     procedure ComboBox1Change(Sender: TObject);
@@ -29,6 +33,7 @@ type
     procedure Image1Click(Sender: TObject);
     procedure ListBox1Click(Sender: TObject);
     procedure ListBox1DblClick(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
     procedure RefreshContactList;
     procedure Timer1Timer(Sender: TObject);
   private
@@ -51,7 +56,16 @@ implementation
 
 procedure TForm1.FormCreate(Sender: TObject);
 begin
+
+
+
      FBarevClient := TBarevClient.Create(Edit1.Text, Edit2.Text);
+
+          if FBarevClient.AvatarManager.MyAvatarPath <> '' then
+  Image1.Picture.LoadFromFile(
+    FBarevClient.AvatarManager.MyAvatarPath
+  );
+
      FBarevClient.OnMessageReceived:= @OnMessageReceived;
 FBarevClient.Start;
 
@@ -64,7 +78,15 @@ end;
 
 procedure TForm1.Image1Click(Sender: TObject);
 begin
+  if OpenDialog1.Execute then
+  begin
+    // show avatar locally
+    Image1.Picture.LoadFromFile(OpenDialog1.FileName);
 
+    // tell Barev about it
+    if not FBarevClient.LoadMyAvatar(OpenDialog1.FileName) then
+      ShowMessage('Failed to load avatar');
+  end;
 end;
 
 procedure TForm1.ListBox1Click(Sender: TObject);
@@ -85,6 +107,28 @@ begin
 
   Chat := TForm4.CreateChat(Self, FBarevClient, Buddy);
   Chat.Show;
+end;
+
+procedure TForm1.MenuItem1Click(Sender: TObject);
+var
+  Buddy: TBarevBuddy;
+begin
+  if ListBox1.ItemIndex < 0 then Exit;
+
+  Buddy := FContactManager.GetContact(ListBox1.ItemIndex);
+
+  if MessageDlg(
+       'Remove buddy',
+       'Remove ' + Buddy.JID + ' from contacts?',
+       mtConfirmation,
+       [mbYes, mbNo],
+       0
+     ) = mrYes then
+  begin
+    FBarevClient.RemoveBuddy(Buddy.JID);
+    FContactManager.SaveToFile('contacts.txt');
+    RefreshContactList;
+  end;
 end;
 
 

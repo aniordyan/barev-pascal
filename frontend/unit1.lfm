@@ -3,7 +3,7 @@ object Form1: TForm1
   Height = 524
   Top = 305
   Width = 466
-  Caption = 'Form1'
+  Caption = 'Barev'
   ClientHeight = 524
   ClientWidth = 466
   OnCreate = FormCreate
@@ -64,6 +64,7 @@ object Form1: TForm1
       Top = 16
       Width = 114
       Center = True
+      OnClick = Image1Click
       Picture.Data = {
         0A544A706567496D61676557540500FFD8FFE000104A46494600010100000100
         010000FFE1002A45786966000049492A0008000000010031010200070000001A
@@ -10982,6 +10983,8 @@ object Form1: TForm1
         7A597F9FFAA9DFFAECC36D0D0D56411C7EB072326A01D8023603C0FE55FC695A
         1A1AE624FFD9
       }
+      Proportional = True
+      Stretch = True
     end
   end
   object Panel2: TPanel
@@ -10998,6 +11001,7 @@ object Form1: TForm1
       Top = 48
       Width = 466
       ItemHeight = 0
+      PopupMenu = PopupMenu1
       TabOrder = 1
       TopIndex = -1
       OnClick = ListBox1Click
@@ -11018,5 +11022,17 @@ object Form1: TForm1
     OnTimer = Timer1Timer
     Left = 432
     Top = 176
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 294
+    Top = 176
+    object MenuItem1: TMenuItem
+      Caption = 'Remove contact'
+      OnClick = MenuItem1Click
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    Left = 222
+    Top = 178
   end
 end
