@@ -9,7 +9,7 @@
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="6"/>
         <CursorPos X="34" Y="22"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -20,9 +20,10 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Unit1"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="187"/>
-        <CursorPos X="36" Y="202"/>
-        <UsageCount Value="97"/>
+        <TopLine Value="106"/>
+        <CursorPos X="62" Y="118"/>
+        <FoldState Value=" T3iH0625111 PiPjV03"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -33,7 +34,7 @@
         <EditorIndex Value="5"/>
         <TopLine Value="32"/>
         <CursorPos X="58" Y="40"/>
-        <UsageCount Value="97"/>
+        <UsageCount Value="100"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -43,7 +44,7 @@
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="26" Y="12"/>
-        <UsageCount Value="95"/>
+        <UsageCount Value="98"/>
       </Unit>
       <Unit>
         <Filename Value="unit2.pas"/>
@@ -54,7 +55,7 @@
         <UnitName Value="Unit2"/>
         <EditorIndex Value="4"/>
         <CursorPos Y="26"/>
-        <UsageCount Value="93"/>
+        <UsageCount Value="96"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -67,7 +68,7 @@
         <UnitName Value="Unit3"/>
         <EditorIndex Value="3"/>
         <CursorPos X="8" Y="63"/>
-        <UsageCount Value="90"/>
+        <UsageCount Value="93"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit>
@@ -98,18 +99,18 @@
         <Filename Value="../barevtypes.pas"/>
         <UnitName Value="BarevTypes"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="73"/>
+        <TopLine Value="136"/>
         <CursorPos X="24" Y="111"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
         <Filename Value="../barev.pas"/>
         <UnitName Value="Barev"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="181"/>
-        <CursorPos X="33" Y="243"/>
-        <UsageCount Value="45"/>
+        <TopLine Value="104"/>
+        <CursorPos X="10" Y="121"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit>
       <Unit>
@@ -120,19 +121,7 @@
         <UsageCount Value="9"/>
       </Unit>
     </Units>
-    <JumpHistory HistoryIndex="28">
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="113" Column="14" TopLine="81"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="121" Column="14" TopLine="121"/>
-      </Position>
-      <Position>
-        <Filename Value="unit1.pas"/>
-        <Caret Line="48" Column="11" TopLine="38"/>
-      </Position>
+    <JumpHistory HistoryIndex="29">
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="45" Column="16"/>
@@ -236,6 +225,22 @@
       <Position>
         <Filename Value="unit1.pas"/>
         <Caret Line="206" Column="59" TopLine="206"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="13" Column="25"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="103" TopLine="86"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="102" Column="29" TopLine="102"/>
+      </Position>
+      <Position>
+        <Filename Value="unit1.pas"/>
+        <Caret Line="111" TopLine="101"/>
       </Position>
     </JumpHistory>
     <RunParams>

@@ -99,7 +99,9 @@ begin
   Index := ListBox1.ItemIndex;
   if Index < 0 then Exit;
 
-  Buddy := FContactManager.GetContact(Index);
+  Buddy := FBarevClient.GetBuddyByIndex(ListBox1.ItemIndex);
+
+
 
   Chat := TForm4.CreateChat(Self, FBarevClient, Buddy);
   Chat.Show;
@@ -109,22 +111,14 @@ procedure TForm1.MenuItem1Click(Sender: TObject);
 var
   Buddy: TBarevBuddy;
 begin
-  if ListBox1.ItemIndex < 0 then Exit;
+ Buddy := FBarevClient.GetBuddyByIndex(ListBox1.ItemIndex);
 
-  Buddy := FContactManager.GetContact(ListBox1.ItemIndex);
+if FBarevClient.RemoveBuddy(Buddy.JID) then
+begin
+  FBarevClient.SaveConfig;
+  RefreshContactList;
+end;
 
-  if MessageDlg(
-       'Remove buddy',
-       'Remove ' + Buddy.JID + ' from contacts?',
-       mtConfirmation,
-       [mbYes, mbNo],
-       0
-     ) = mrYes then
-  begin
-    FBarevClient.RemoveBuddy(Buddy.JID);
-    FBarevClient.SaveConfig;
-    RefreshContactList;
-  end;
 end;
 
 
@@ -144,12 +138,16 @@ var
   Buddy: TBarevBuddy;
 begin
   ListBox1.Clear;
-  for I := 0 to FContactManager.Count - 1 do
+
+  if not Assigned(FBarevClient) then Exit;
+
+  for I := 0 to FBarevClient.GetBuddyCount - 1 do
   begin
-    Buddy := FContactManager.GetContact(I);
+    Buddy := FBarevClient.GetBuddyByIndex(I);
     ListBox1.Items.Add(Buddy.JID);
   end;
 end;
+
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
@@ -166,7 +164,7 @@ begin
   try
     if AddForm.ShowModal = mrOK then
     begin
-      FContactManager.AddContact(AddForm.Nick, AddForm.IPv6);
+      FBarevClient.AddBuddy(AddForm.Nick, AddForm.IPv6);
       FBarevClient.SaveConfig;
       RefreshContactList;
 
@@ -197,6 +195,16 @@ begin
   FBarevClient.OnMessageReceived := @OnMessageReceived;
 
   FBarevClient.LoadConfig(GetUserDir + '.barev' + PathDelim + 'barev.ini');
+
+  // load avatar from backend if available
+if (FBarevClient.AvatarManager.MyAvatarPath <> '') and
+   FileExists(FBarevClient.AvatarManager.MyAvatarPath) then
+begin
+  Image1.Picture.LoadFromFile(
+    FBarevClient.AvatarManager.MyAvatarPath
+  );
+end;
+
 
   Edit1.Text := FBarevClient.Nick;
   Edit2.Text := FBarevClient.MyIPv6;
