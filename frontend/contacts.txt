@@ -1,5 +1,4 @@
 # Barev Contacts
 # Format: nick@ipv6_address or nick@ipv6_address:port
 
-inky@::
 test@0201:AF82:9F2F:7809:BE0C:360A:1587:6BE7
