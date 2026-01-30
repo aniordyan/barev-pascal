@@ -210,16 +210,23 @@ end;
   Edit2.Text := FBarevClient.MyIPv6;
   //set image
 
+  Timer1.Enabled := True;
   FBarevClient.Start;
+
+  FBarevClient.Process;
+FBarevClient.Process;
+FBarevClient.Process;
+
 
   FContactManager := TContactManager.Create(FBarevClient);
   RefreshContactList;
 
-  Timer1.Enabled := True;
+
 
   Edit1.Enabled := False;
   Edit2.Enabled := False;
   Button2.Enabled := False;
+  //try to connect to all buddies when start is pressed
 end;
 
 procedure TForm1.OnMessageReceived(
